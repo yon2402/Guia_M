@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: EcoLog()));
+
+class EcoLog extends StatefulWidget {
+  const EcoLog({super.key});
+
+  @override
+  State<EcoLog> createState() => _EcoLogState();
+}
+
+class _EcoLogState extends State<EcoLog> {
+  final List<String> _data = [];
+  final TextEditingController _input = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("DevOps PoC: Android & Windows")),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: TextField(
+              controller: _input,
+              decoration: const InputDecoration(labelText: "Nombre del Punto"),
+            ),
+          ),
+          ElevatedButton(
+            child: const Text("Registrar"),
+            onPressed: () => setState(() {
+              _data.add(_input.text);
+              _input.clear();
+            }),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _data.length,
+              itemBuilder: (c, i) => ListTile(title: Text(_data[i])),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
